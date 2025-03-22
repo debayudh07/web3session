@@ -15,6 +15,8 @@ import { ethers } from 'ethers'
 import Image from 'next/image'
 import ConsensusVisualizer from '@/components/BlockchainVisualization';
 import BlockchainNetworkVisualization from '@/components/BlockchainNetworkVisualization';
+import BlockchainResources from '@/components/BlockchainResources';
+
 
 // Define TypeScript interfaces
 interface Block {
@@ -528,55 +530,72 @@ export default function BlockchainLanding() {
       <header className="sticky top-0 z-50 backdrop-blur-md bg-black/80 border-b border-gray-800">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-white animate-pulse" />
-            <h1 className="text-xl font-bold text-white glitch-text">
-              BlockChain Explorer
-            </h1>
+        <div className="w-8 h-8 rounded-full bg-white animate-pulse" />
+        <h1 className="text-xl font-bold text-white glitch-text">
+          BlockChain Explorer
+        </h1>
           </div>
           
           <div className="flex items-center gap-3">
-            {wallet.connected && wallet.chainId !== SEPOLIA_CHAIN_ID && (
-              <button
-                onClick={switchToSepolia}
-                disabled={loading}
-                className="px-3 py-1 bg-white text-black hover:bg-gray-300 rounded-md text-sm transition-all duration-300 disabled:opacity-50"
-              >
-                Switch to Sepolia
-              </button>
+        {wallet.connected && wallet.chainId !== SEPOLIA_CHAIN_ID && (
+          <button
+            onClick={switchToSepolia}
+            disabled={loading}
+            className="px-3 py-1 bg-white text-black hover:bg-gray-300 rounded-md text-sm transition-all duration-300 disabled:opacity-50"
+          >
+            Switch to Sepolia
+          </button>
+        )}
+        
+        {!wallet.connected ? (
+          <button 
+            onClick={connectWallet}
+            disabled={loading}
+            className="px-4 py-2 bg-white text-black hover:bg-gray-300 rounded-md transition-all duration-300 disabled:opacity-50 flex items-center gap-2 glitch-border"
+          >
+            {loading ? 'Connecting...' : (
+          <>
+            <svg width="20" height="20" viewBox="0 0 35 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M32.9582 1L19.8241 10.7183L22.2541 5.11667L32.9582 1Z" fill="#000" stroke="#000" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M2.04183 1L15.0487 10.809L12.7458 5.11667L2.04183 1Z" fill="#000" stroke="#000" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M28.2204 23.4514L24.6729 28.7722L32.3119 30.7635L34.5458 23.5786L28.2204 23.4514Z" fill="#000" stroke="#000" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M0.46875 23.5786L2.69271 30.7635L10.3317 28.7722L6.78417 23.4514L0.46875 23.5786Z" fill="#000" stroke="#000" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M9.91576 14.5149L7.83984 17.6097L15.4317 17.9547L15.1503 9.81787L9.91576 14.5149Z" fill="#000" stroke="#000" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M25.0842 14.5149L19.7769 9.72705L19.5682 17.9547L27.1601 17.6097L25.0842 14.5149Z" fill="#000" stroke="#000" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M10.3317 28.7722L14.9685 26.6326L10.9769 23.6333L10.3317 28.7722Z" fill="#000" stroke="#000" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M20.0315 26.6326L24.6682 28.7722L24.0231 23.6333L20.0315 26.6326Z" fill="#000" stroke="#000" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Connect MetaMask
+          </>
             )}
-            
-            {!wallet.connected ? (
-              <button 
-                onClick={connectWallet}
-                disabled={loading}
-                className="px-4 py-2 bg-white text-black hover:bg-gray-300 rounded-md transition-all duration-300 disabled:opacity-50 flex items-center gap-2 glitch-border"
-              >
-                {loading ? 'Connecting...' : (
-                  <>
-                    <svg width="20" height="20" viewBox="0 0 35 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M32.9582 1L19.8241 10.7183L22.2541 5.11667L32.9582 1Z" fill="#000" stroke="#000" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M2.04183 1L15.0487 10.809L12.7458 5.11667L2.04183 1Z" fill="#000" stroke="#000" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M28.2204 23.4514L24.6729 28.7722L32.3119 30.7635L34.5458 23.5786L28.2204 23.4514Z" fill="#000" stroke="#000" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M0.46875 23.5786L2.69271 30.7635L10.3317 28.7722L6.78417 23.4514L0.46875 23.5786Z" fill="#000" stroke="#000" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M9.91576 14.5149L7.83984 17.6097L15.4317 17.9547L15.1503 9.81787L9.91576 14.5149Z" fill="#000" stroke="#000" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M25.0842 14.5149L19.7769 9.72705L19.5682 17.9547L27.1601 17.6097L25.0842 14.5149Z" fill="#000" stroke="#000" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M10.3317 28.7722L14.9685 26.6326L10.9769 23.6333L10.3317 28.7722Z" fill="#000" stroke="#000" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M20.0315 26.6326L24.6682 28.7722L24.0231 23.6333L20.0315 26.6326Z" fill="#000" stroke="#000" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                    Connect MetaMask
-                  </>
-                )}
-              </button>
-            ) : (
-              <div className="flex items-center gap-2 bg-gray-900 px-3 py-1 rounded-full border border-white/50 hover:border-white transition-all duration-300">
-                <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
-                <span>{truncateAddress(wallet.address)}</span>
-                <span className="text-white">{wallet.balance} ETH</span>
-                {wallet.chainId === SEPOLIA_CHAIN_ID && (
-                  <span className="bg-white/10 text-white text-xs px-2 py-0.5 rounded-full">Sepolia</span>
-                )}
-              </div>
-            )}
+          </button>
+        ) : (
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 bg-gray-900 px-3 py-1 rounded-full border border-white/50 hover:border-white transition-all duration-300">
+          <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
+          <span>{truncateAddress(wallet.address)}</span>
+          <span className="text-white">{wallet.balance} ETH</span>
+          {wallet.chainId === SEPOLIA_CHAIN_ID && (
+            <span className="bg-white/10 text-white text-xs px-2 py-0.5 rounded-full">Sepolia</span>
+          )}
+            </div>
+            <button
+          onClick={() => {
+            setWallet({
+              address: '',
+              balance: '0',
+              connected: false,
+              chainId: null,
+              provider: null,
+              signer: null
+            });
+          }}
+          className="px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded-md text-sm transition-all duration-300"
+            >
+          Disconnect
+            </button>
+          </div>
+        )}
           </div>
         </div>
       </header>
@@ -585,61 +604,84 @@ export default function BlockchainLanding() {
       <section className="relative z-10 py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight glitch-heading">
-             <span className="text-white typewriter">Blockchain Technology</span>
-            </h2>
-            <p className="text-lg text-gray-400 mb-8 typing-text">
-              Explore, interact, and send real transactions on the Sepolia Testnet
+        <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight glitch-heading">
+         <span className="text-white typewriter">Blockchain Technology</span>
+        </h2>
+        
+        {/* Added blockchain explanation */}
+        <div className="bg-black/80 backdrop-blur-sm p-8 rounded-xl border border-white/20 mb-12 hover:border-white/40 transition-all duration-500">
+          <h3 className="text-2xl font-semibold mb-4 text-white">What is Blockchain?</h3>
+          <p className="text-lg text-gray-300 mb-6 leading-relaxed">
+            Blockchain is a decentralized, distributed ledger technology that records transactions across a network of computers. Each block contains transaction data and is linked to previous blocks, forming an immutable chain.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+            <div className="p-4 bg-white/5 rounded-lg">
+          <h4 className="text-lg font-medium text-white mb-2">Decentralized</h4>
+          <p className="text-gray-400">No single entity controls the network - it's maintained by a distributed network of participants.</p>
+            </div>
+            <div className="p-4 bg-white/5 rounded-lg">
+          <h4 className="text-lg font-medium text-white mb-2">Transparent</h4>
+          <p className="text-gray-400">All transactions are public and can be verified by anyone on the network.</p>
+            </div>
+            <div className="p-4 bg-white/5 rounded-lg">
+          <h4 className="text-lg font-medium text-white mb-2">Immutable</h4>
+          <p className="text-gray-400">Once recorded, data cannot be altered without changing all subsequent blocks.</p>
+            </div>
+          </div>
+        </div>
+
+        <p className="text-lg text-gray-400 mb-8 typing-text">
+          Explore, interact, and send real transactions on the Sepolia Testnet
+        </p>
+        
+        {error && (
+          <div className="bg-white/5 border border-white/20 text-white p-3 rounded-lg mb-6 glitch-error">
+            {error}
+          </div>
+        )}
+        
+        {wallet.connected && (
+          <div className="bg-black/80 backdrop-blur-sm p-6 rounded-xl border border-white/20 max-w-md mx-auto hover:border-white/40 transition-all duration-500 glitch-card">
+            <h3 className="text-xl font-semibold mb-4 text-white">Send Sepolia ETH</h3>
+            <form onSubmit={sendTransaction} className="space-y-4">
+          <div>
+            <label className="block text-sm text-gray-400 mb-1">Recipient Address</label>
+            <input
+              type="text"
+              value={recipient}
+              onChange={(e) => setRecipient(e.target.value)}
+              placeholder="0x..."
+              className="w-full p-2 bg-black border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-white text-white"
+            />
+          </div>
+          <div>
+            <label className="block text-sm text-gray-400 mb-1">Amount (ETH)</label>
+            <input
+              type="number"
+              step="0.0001"
+              min="0.0001"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              placeholder="0.0"
+              className="w-full p-2 bg-black border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-white text-white"
+            />
+          </div>
+          <button
+            type="submit"
+            disabled={loading || !recipient || !amount || wallet.chainId !== SEPOLIA_CHAIN_ID}
+            className="w-full py-2 bg-white hover:bg-gray-200 text-black rounded-md transition-all duration-300 disabled:opacity-50 glitch-button"
+          >
+            {loading ? 'Processing...' : 'Send Tokens'}
+          </button>
+          
+          {wallet.chainId !== SEPOLIA_CHAIN_ID && (
+            <p className="text-sm text-white/80 mt-2">
+              Please switch to Sepolia network to send transactions
             </p>
-            
-            {error && (
-              <div className="bg-white/5 border border-white/20 text-white p-3 rounded-lg mb-6 glitch-error">
-                {error}
-              </div>
-            )}
-            
-            {wallet.connected && (
-              <div className="bg-black/80 backdrop-blur-sm p-6 rounded-xl border border-white/20 max-w-md mx-auto hover:border-white/40 transition-all duration-500 glitch-card">
-                <h3 className="text-xl font-semibold mb-4 text-white">Send Sepolia ETH</h3>
-                <form onSubmit={sendTransaction} className="space-y-4">
-                  <div>
-                    <label className="block text-sm text-gray-400 mb-1">Recipient Address</label>
-                    <input
-                      type="text"
-                      value={recipient}
-                      onChange={(e) => setRecipient(e.target.value)}
-                      placeholder="0x..."
-                      className="w-full p-2 bg-black border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-white text-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm text-gray-400 mb-1">Amount (ETH)</label>
-                    <input
-                      type="number"
-                      step="0.0001"
-                      min="0.0001"
-                      value={amount}
-                      onChange={(e) => setAmount(e.target.value)}
-                      placeholder="0.0"
-                      className="w-full p-2 bg-black border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-white text-white"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    disabled={loading || !recipient || !amount || wallet.chainId !== SEPOLIA_CHAIN_ID}
-                    className="w-full py-2 bg-white hover:bg-gray-200 text-black rounded-md transition-all duration-300 disabled:opacity-50 glitch-button"
-                  >
-                    {loading ? 'Processing...' : 'Send Tokens'}
-                  </button>
-                  
-                  {wallet.chainId !== SEPOLIA_CHAIN_ID && (
-                    <p className="text-sm text-white/80 mt-2">
-                      Please switch to Sepolia network to send transactions
-                    </p>
-                  )}
-                </form>
-              </div>
-            )}
+          )}
+            </form>
+          </div>
+        )}
           </div>
         </div>
       </section>
@@ -653,7 +695,8 @@ export default function BlockchainLanding() {
               : 'Blockchain Network'
             }
           </h2>
-          
+         
+
           <BlockchainNetworkVisualization/>
           <ConsensusVisualizer/>
           
@@ -715,8 +758,10 @@ export default function BlockchainLanding() {
             </div>
           </div>
         </div>
+
+
       </section>
-      
+      <BlockchainResources/>
       {/* Global styles */}
     </main>
   )
