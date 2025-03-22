@@ -586,7 +586,7 @@ export default function BlockchainLanding() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight glitch-heading">
-              Experience the Future of <span className="text-white typewriter">Blockchain Technology</span>
+             <span className="text-white typewriter">Blockchain Technology</span>
             </h2>
             <p className="text-lg text-gray-400 mb-8 typing-text">
               Explore, interact, and send real transactions on the Sepolia Testnet

@@ -484,27 +484,7 @@ const BlockchainNetworkVisualization: React.FC = () => {
           <span>Oracle</span>
         </div>
       </div>
-      
-      {/* Blockchain Stats */}
-      <div className="absolute top-2 left-2 bg-black/70 p-2 rounded text-xs text-white">
-        <div className="font-bold mb-1 text-center border-b border-gray-600 pb-1">Blockchain Stats</div>
-        <div className="flex justify-between mb-1">
-          <span>Blocks:</span>
-          <span className="font-mono">{blocks.length}</span>
-        </div>
-        <div className="flex justify-between mb-1">
-          <span>Last Block:</span>
-          <span className="font-mono">#{blocks.length > 0 ? blocks[blocks.length-1].id : '0'}</span>
-        </div>
-        <div className="flex justify-between mb-1">
-          <span>Mining:</span>
-          <span className="font-mono text-red-400 animate-pulse">In Progress</span>
-        </div>
-        <div className="flex justify-between">
-          <span>Tx Pool:</span>
-          <span className="font-mono">{transactions.length}</span>
-        </div>
-      </div>
+    
     </div>
   );
 };
