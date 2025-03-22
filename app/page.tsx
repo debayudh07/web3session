@@ -604,31 +604,129 @@ export default function BlockchainLanding() {
       <section className="relative z-10 py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-12">
-        <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight glitch-heading">
-         <span className="text-white typewriter">Blockchain Technology</span>
-        </h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight glitch-heading">
+              <span className="text-white typewriter">Blockchain Technology</span>
+            </h2>
+          </div>
         
         {/* Added blockchain explanation */}
         <div className="bg-black/80 backdrop-blur-sm p-8 rounded-xl border border-white/20 mb-12 hover:border-white/40 transition-all duration-500">
           <h3 className="text-2xl font-semibold mb-4 text-white">What is Blockchain?</h3>
           <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-            Blockchain is a decentralized, distributed ledger technology that records transactions across a network of computers. Each block contains transaction data and is linked to previous blocks, forming an immutable chain.
+        Blockchain is a decentralized, distributed ledger technology that records transactions across a network of computers. Each block contains transaction data and is linked to previous blocks, forming an immutable chain.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-            <div className="p-4 bg-white/5 rounded-lg">
+        <div className="p-4 bg-white/5 rounded-lg">
           <h4 className="text-lg font-medium text-white mb-2">Decentralized</h4>
           <p className="text-gray-400">No single entity controls the network - it's maintained by a distributed network of participants.</p>
-            </div>
-            <div className="p-4 bg-white/5 rounded-lg">
+        </div>
+        <div className="p-4 bg-white/5 rounded-lg">
           <h4 className="text-lg font-medium text-white mb-2">Transparent</h4>
           <p className="text-gray-400">All transactions are public and can be verified by anyone on the network.</p>
-            </div>
-            <div className="p-4 bg-white/5 rounded-lg">
+        </div>
+        <div className="p-4 bg-white/5 rounded-lg">
           <h4 className="text-lg font-medium text-white mb-2">Immutable</h4>
           <p className="text-gray-400">Once recorded, data cannot be altered without changing all subsequent blocks.</p>
-            </div>
+        </div>
           </div>
         </div>
+
+        {/* Added Gas Fee Structure Explanation */}
+        <div className="bg-black/80 backdrop-blur-sm p-8 rounded-xl border border-white/20 mb-12 hover:border-white/40 transition-all duration-500">
+          <h3 className="text-2xl font-semibold mb-4 text-white">Understanding Gas Fees & EIP-1559</h3>
+          <div className="text-left">
+            <div className="mb-6">
+              <h4 className="text-lg font-medium text-white mb-2">What are Gas Fees?</h4>
+              <p className="text-gray-300">Gas fees are payments made by users to compensate for the computing energy required to process and validate transactions on the Ethereum network.</p>
+            </div>
+            
+            {/* Interactive Gas Calculator */}
+            <div className="mb-8 p-6 bg-white/5 rounded-lg">
+              <h4 className="text-lg font-medium text-white mb-4">Gas Fee Calculator</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm text-gray-400 mb-1">Base Fee (Gwei)</label>
+              <input 
+          type="number"
+          min="0"
+          id="baseFee"
+          className="w-full p-2 bg-black border border-white/30 rounded-md text-white"
+          defaultValue="30"
+              />
+            </div>
+            <div>
+              <label className="block text-sm text-gray-400 mb-1">Priority Fee (Gwei)</label>
+              <input 
+          type="number"
+          min="0"
+          id="priorityFee"
+          className="w-full p-2 bg-black border border-white/30 rounded-md text-white"
+          defaultValue="2"
+              />
+            </div>
+            <button
+              onClick={() => {
+          const baseFee = Number((document.getElementById('baseFee') as HTMLInputElement)?.value || 30);
+          const priorityFee = Number((document.getElementById('priorityFee') as HTMLInputElement)?.value || 2);
+          const total = baseFee + priorityFee;
+          const totalGwei = document.getElementById('totalGwei');
+          const totalEth = document.getElementById('totalEth');
+          if (totalGwei) totalGwei.textContent = total.toString();
+          if (totalEth) totalEth.textContent = (total * 1e-9).toFixed(9);
+              }}
+              className="w-full py-2 bg-white text-black rounded-md hover:bg-gray-200 transition-all duration-300"
+            >
+              Calculate Gas Fee
+            </button>
+          </div>
+            <div className="bg-white/10 p-4 rounded-lg">
+              <div className="text-center">
+          <p className="text-gray-400 mb-2">Total Gas Fee</p>
+          <div>
+            <p className="text-3xl font-bold text-white">
+              <span id="totalGwei">32</span> Gwei
+            </p>
+            <p className="text-sm text-gray-400">
+              (<span id="totalEth">0.000000032</span> ETH)
+            </p>
+          </div>
+              </div>
+              <div className="mt-4 text-sm text-gray-400">
+          <p>💡 Base fee is burned</p>
+          <p>💡 Priority fee goes to miners</p>
+          <p>💡 1 Gwei = 10^-9 ETH</p>
+              </div>
+            </div>
+            </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div className="p-4 bg-white/5 rounded-lg">
+          <h4 className="text-lg font-medium text-white mb-2">Pre EIP-1559</h4>
+          <ul className="text-gray-400 list-disc list-inside space-y-2">
+            <li>First-price auction model</li>
+            <li>Unpredictable gas fees</li>
+            <li>Users bid gas prices</li>
+          </ul>
+              </div>
+              
+              <div className="p-4 bg-white/5 rounded-lg">
+          <h4 className="text-lg font-medium text-white mb-2">Post EIP-1559</h4>
+          <ul className="text-gray-400 list-disc list-inside space-y-2">
+            <li>Base fee + Priority fee model</li>
+            <li>More predictable fees</li>
+            <li>Base fee is burned</li>
+          </ul>
+              </div>
+            </div>
+
+              <div className="p-4 bg-white/5 rounded-lg">
+          <h4 className="text-lg font-medium text-white mb-2">Gas Fee Tips</h4>
+          <p className="text-gray-400">Tips for optimizing your gas fees on the network.</p>
+              </div>
+            </div>
 
         <p className="text-lg text-gray-400 mb-8 typing-text">
           Explore, interact, and send real transactions on the Sepolia Testnet
@@ -636,54 +734,54 @@ export default function BlockchainLanding() {
         
         {error && (
           <div className="bg-white/5 border border-white/20 text-white p-3 rounded-lg mb-6 glitch-error">
-            {error}
+        {error}
           </div>
         )}
         
         {wallet.connected && (
           <div className="bg-black/80 backdrop-blur-sm p-6 rounded-xl border border-white/20 max-w-md mx-auto hover:border-white/40 transition-all duration-500 glitch-card">
-            <h3 className="text-xl font-semibold mb-4 text-white">Send Sepolia ETH</h3>
-            <form onSubmit={sendTransaction} className="space-y-4">
+        <h3 className="text-xl font-semibold mb-4 text-white">Send Sepolia ETH</h3>
+        <form onSubmit={sendTransaction} className="space-y-4">
           <div>
-            <label className="block text-sm text-gray-400 mb-1">Recipient Address</label>
-            <input
-              type="text"
-              value={recipient}
-              onChange={(e) => setRecipient(e.target.value)}
-              placeholder="0x..."
-              className="w-full p-2 bg-black border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-white text-white"
-            />
+        <label className="block text-sm text-gray-400 mb-1">Recipient Address</label>
+        <input
+          type="text"
+          value={recipient}
+          onChange={(e) => setRecipient(e.target.value)}
+          placeholder="0x..."
+          className="w-full p-2 bg-black border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-white text-white"
+        />
           </div>
           <div>
-            <label className="block text-sm text-gray-400 mb-1">Amount (ETH)</label>
-            <input
-              type="number"
-              step="0.0001"
-              min="0.0001"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              placeholder="0.0"
-              className="w-full p-2 bg-black border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-white text-white"
-            />
+        <label className="block text-sm text-gray-400 mb-1">Amount (ETH)</label>
+        <input
+          type="number"
+          step="0.0001"
+          min="0.0001"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          placeholder="0.0"
+          className="w-full p-2 bg-black border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-white text-white"
+        />
           </div>
           <button
-            type="submit"
-            disabled={loading || !recipient || !amount || wallet.chainId !== SEPOLIA_CHAIN_ID}
-            className="w-full py-2 bg-white hover:bg-gray-200 text-black rounded-md transition-all duration-300 disabled:opacity-50 glitch-button"
+        type="submit"
+        disabled={loading || !recipient || !amount || wallet.chainId !== SEPOLIA_CHAIN_ID}
+        className="w-full py-2 bg-white hover:bg-gray-200 text-black rounded-md transition-all duration-300 disabled:opacity-50 glitch-button"
           >
-            {loading ? 'Processing...' : 'Send Tokens'}
+        {loading ? 'Processing...' : 'Send Tokens'}
           </button>
           
           {wallet.chainId !== SEPOLIA_CHAIN_ID && (
-            <p className="text-sm text-white/80 mt-2">
-              Please switch to Sepolia network to send transactions
-            </p>
+        <p className="text-sm text-white/80 mt-2">
+          Please switch to Sepolia network to send transactions
+        </p>
           )}
-            </form>
+        </form>
           </div>
         )}
           </div>
-        </div>
+        
       </section>
       
       {/* Network Visualization */}
