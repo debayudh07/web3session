@@ -14,6 +14,7 @@ declare global {
 import { ethers } from 'ethers'
 import Image from 'next/image'
 import ConsensusVisualizer from '@/components/BlockchainVisualization';
+import BlockchainNetworkVisualization from '@/components/BlockchainNetworkVisualization';
 
 // Define TypeScript interfaces
 interface Block {
@@ -653,61 +654,8 @@ export default function BlockchainLanding() {
             }
           </h2>
           
-          <div 
-            ref={networkRef} 
-            className="relative h-64 md:h-96 bg-black backdrop-blur-sm rounded-xl border border-white/20 overflow-hidden mb-12 glitch-container"
-          >
-            {/* Matrix code effect */}
-            <div className="matrix-rain"></div>
-            
-            {/* Static network nodes */}
-            {Array.from({length: 12}).map((_, i) => (
-              <div 
-                key={i}
-                className="absolute w-4 h-4 rounded-full bg-white/80 node-pulse"
-                style={{
-                  left: `${Math.random() * 80 + 10}%`,
-                  top: `${Math.random() * 80 + 10}%`,
-                  animationDelay: `${i * 0.2}s`,
-                  animationDuration: `${3 + Math.random() * 2}s`
-                }}
-              />
-            ))}
-            
-            {/* Connection lines */}
-            <svg className="absolute inset-0 w-full h-full">
-              <defs>
-                <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#ffffff" stopOpacity="0.6" />
-                  <stop offset="100%" stopColor="#ffffff" stopOpacity="0.1" />
-                </linearGradient>
-              </defs>
-              {Array.from({length: 18}).map((_, i) => {
-                const x1 = Math.random() * 100
-                const y1 = Math.random() * 100
-                const x2 = Math.random() * 100
-                const y2 = Math.random() * 100
-                return (
-                  <line 
-                    key={i}
-                    x1={`${x1}%`} 
-                    y1={`${y1}%`} 
-                    x2={`${x2}%`} 
-                    y2={`${y2}%`} 
-                    stroke="url(#lineGradient)" 
-                    strokeWidth="1"
-                    strokeDasharray="5,5"
-                    className="animate-pulse line-draw"
-                    style={{
-                      animationDuration: `${3 + Math.random() * 3}s`,
-                      animationDelay: `${i * 0.3}s`
-                    }}
-                  />
-                )
-              })}
-            </svg>
-          </div>
-          <ConsensusVisualizer />
+          <BlockchainNetworkVisualization/>
+          <ConsensusVisualizer/>
           
           {/* Blockchain and transactions */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
